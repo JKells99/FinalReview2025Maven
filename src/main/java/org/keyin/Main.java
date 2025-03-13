@@ -3,16 +3,17 @@ package org.keyin;
 import org.keyin.user.User;
 import org.keyin.user.UserService;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.sql.SQLException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         UserService userService = new UserService();
-
-        User user = new User("Jordan","j_j@j.com","jordan1234","Commander","Science");
-
+        User user = new User("BillyBob2","b_b2@j.com","jordan1234","Commander","Science");
         userService.createNewUser(user);
+
+        userService.printAllUsersInSystem();
+
 
     }
 }
