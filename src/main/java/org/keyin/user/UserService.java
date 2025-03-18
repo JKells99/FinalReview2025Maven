@@ -28,5 +28,26 @@ public class UserService {
         userDAO.getAllUsers();
     }
 
+    public User login(String username, String password) throws SQLException {
+        if(username == null || password == null){
+            System.out.println("Username or password is null");
+            return null;
+        }
+        User user = userDAO.getUserByUsername(username);
+
+        if(user == null){
+            System.out.println("User not found");
+            return null;
+        }
+
+        if(!BCrypt.checkpw(password,user.getPassword())){
+            System.out.println("Creds are incorrect");
+            return null;
+        }
+
+        System.out.println("User logged in successfully");
+        return user;
+    }
+
 
 }
