@@ -59,6 +59,30 @@ public class UserDAO {
         };
     }
 
+    public User getUserByUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        try(Connection conn = DatabaseConnection.getConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if (rs.next()) {
+                    return new User(
+                            rs.getInt("user_id"),
+                            rs.getString("username"),
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("role"),
+                            rs.getString("sector")
+
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
+
+
 
 
 
