@@ -7,6 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// Hello! I am the UserDAO class. I am responsible for handling all the database operations related to the User entity.
+// I have a method called createNewUser that takes a User object as an argument and inserts it into the database.
+// I have a method called getAllUsers that retrieves all the users from the database and prints them to the console.
+// I have a method called getUserByUsername that retrieves a user from the database based on the username provided.
+// I am a friend of the User class and I work closely with the DatabaseConnection class to establish a connection to the database.
+// I am a good example of the Data Access Object (DAO) design pattern.
+
 public class UserDAO {
 
     public void createNewUser(User user) {
