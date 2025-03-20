@@ -1,5 +1,8 @@
 package org.keyin;
 
+import org.keyin.mission.Mission;
+import org.keyin.mission.MissionDAO;
+import org.keyin.mission.MissionService;
 import org.keyin.user.Engineer;
 import org.keyin.user.User;
 import org.keyin.user.UserService;
@@ -8,9 +11,11 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
+    static UserService userService = new UserService();
+    static MissionService missionService = new MissionService();
     public static void main(String[] args) throws SQLException {
 
-        UserService userService = new UserService();
+
         //User user = new User("BillyBob3","b_b2@j.com","jordan1234","Commander","Science");
         Engineer engineer = new Engineer("BillyBob3", "b@bb.con", "jordan1234", "Science");
 //        userService.createNewUser(engineer);
@@ -60,7 +65,7 @@ public class Main {
         User user = userService.login(username, password);
         if(user != null){
             if(user.getRole().equalsIgnoreCase("commander")){
-                System.out.println("Welcome commander");
+                showCommanderMenu(scanner,user);
             }
             if(user.getRole().equalsIgnoreCase("scientist")){
                 System.out.println("Welcome scientist");
@@ -72,6 +77,46 @@ public class Main {
         }else{
             System.out.println("User not found");
         }
+    }
+
+    private static void showCommanderMenu(Scanner scanner,User user) throws SQLException {
+        System.out.println("Welcome Commander " + user.getUsername());
+        System.out.println("What would you like to do?");
+        System.out.println("1. View all users with contact info");
+        System.out.println("2. Create New Mission");
+
+        int choice = scanner.nextInt();
+        switch(choice){
+            case 1:
+                printAllUsersInSystem();
+                break;
+            case 2:
+                createNewMissionMenu(scanner);
+                break;
+            default:
+                System.out.println("Invalid choice");
+        }
+    }
+
+    private static void createNewMissionMenu(Scanner scanner) {
+        System.out.println("Enter mission name: ");
+        String missionName = scanner.next();
+        System.out.println("Enter mission type: ");
+        String missionType = scanner.next();
+        System.out.println("Enter user id to assign mission to: ");
+        int userId = scanner.nextInt();
+        System.out.println("Enter mission status: ");
+        String status = scanner.next();
+
+        Mission mission = new Mission(missionName, missionType, userId, status);
+        missionService.createMission(mission);
+
+
+    }
+
+    private static void printAllUsersInSystem() throws SQLException {
+        userService.printAllUsersInSystem();
+
     }
 
     private static void registerUser(Scanner scanner, UserService userService) {
