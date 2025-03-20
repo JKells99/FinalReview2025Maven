@@ -16,3 +16,11 @@ CREATE TABLE IF NOT EXISTS public.users
 
 ALTER TABLE IF EXISTS public.users
     OWNER to postgres;
+
+CREATE TABLE missions (
+                          mission_id SERIAL PRIMARY KEY,
+                          mission_name VARCHAR(100) NOT NULL,
+                          mission_type VARCHAR(50) NOT NULL,
+                          assigned_to_user_id INT REFERENCES users(user_id),
+                          status VARCHAR(20) CHECK (status IN ('Pending', 'In Progress', 'Completed')) NOT NULL
+);
